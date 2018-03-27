@@ -1,0 +1,44 @@
+body {
+    background-image: url('/Users/andrew/projects/blackjack/images/Table.png');
+    background-repeat: no-repeat;
+    background-color: black;
+    background-position: center top;
+    background-size: 80%;
+    margin: 30px auto;
+    
+}
+
+#dealer {
+    display: flex;
+    border: 2px solid black;
+    height: 110px;
+    width: 700px;
+    margin: 0 auto;
+}
+
+#deck {
+    background-image: url("/Users/andrew/projects/blackjack/css/card-deck-css/images/backs/red.svg");
+}
+
+#playerHand {
+    display: flex;
+    border: 2px solid black;
+    height: 110px;
+    width: 500px;
+    margin: 0 auto;
+}
+
+#dealerHand {
+    border: 1px solid black;
+    margin-left: 80px;
+}
+
+.message {
+    border: 2px dashed red;
+    height: 200px;
+    width: 700px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
