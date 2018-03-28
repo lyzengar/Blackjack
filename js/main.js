@@ -27,12 +27,15 @@ var inPlayBtns = document.querySelector('#in-play-btns');
 var shuffleBtn = document.querySelector('#newHand');
 var message = document.querySelector('.message');
 var betBtns = document.querySelector('#betButtons');
+var bank = document.querySelector('#bank');
+var currentBet = document.querySelector('#currentBet');
 
 /*----- event listeners -----*/
 
 document.getElementById('hit').addEventListener('click', hit);
 document.getElementById('stand').addEventListener('click', stand);
 document.getElementById('newHand').addEventListener('click', deal);
+document.getElementById('betButtons').addEventListener('click', incrementBet);
 
 /*----- functions -----*/
 
@@ -73,16 +76,19 @@ function deal() {
   playerValue = computeHand(playerCards);
   dealerValue = computeHand(dealerCards);
   if (playerValue === 21 && dealerValue === 21) {
+    handInProgress = false;
     messageToDisplay = 'Tie Game';
-    console.log('tie game')
+    tieGame();
+    newBet();
   } else if (playerValue === 21 && dealerValue !== 21) {
     handInProgress = false;
     messageToDisplay = 'Blackjack!';
-    console.log('blackjack!')
+    payout();
+    newBet();
   } else if (playerValue !== 21 && dealerValue === 21) {
     handInProgress = false;
     messageToDisplay = 'Dealer Wins';
-    console.log('blackjack!')
+    newBet();
   }
   render();
 }
@@ -107,9 +113,9 @@ function hit() {
   deck.shift();
   playerValue = computeHand(playerCards);
   if (playerValue > 21) {
-    messageToDisplay = 'Bust!'
-    console.log('player bust');
     handInProgress = false;
+    messageToDisplay = 'Bust!'
+    newBet();
   }
   render();
 }
@@ -125,7 +131,6 @@ function stand() {
     render();
     if (dealerValue > 21) {
       messageToDisplay = 'You Win!';
-      console.log('dealer bust');
     }
   }
   handInProgress = false;
@@ -136,23 +141,49 @@ function stand() {
 function checkForWinner() {
   if (playerValue === dealerValue) {
     messageToDisplay = 'Tie Game';
-    console.log('tie game');
+    tieGame();
+    newBet();
   } else if (playerValue > dealerValue) {
     messageToDisplay = 'You Win!';
-    console.log('player wins')
+    payout();
+    newBet();
   } else if (dealerValue > playerValue && dealerValue <= 21) {
     messageToDisplay = 'Dealer Wins';
-    console.log('dealer wins')
+    newBet();
   } else { }
   render();
 }
 
+function incrementBet(e) {
+  bet += parseInt(e.target.textContent.replace('+ $', ''));
+  bankroll -= parseInt(e.target.textContent.replace('+ $', ''));
+  render();
+}
+
+function payout() {
+  bankroll += (bet * 1.5);
+  return bankroll;
+}
+
+function tieGame() {
+  bankroll += bet;
+  return bankroll;
+}
+
+function newBet() {
+  bet = 0;
+  return bet;
+}
+
 function initialize() {
   bankroll = 500;
+  bet = 0;
 }
 
 function render() {
   var html = '';
+  bank.innerHTML = `<span>Bank</span>$${bankroll}`;
+  currentBet.innerHTML = `<span>Bet</span>$${bet}`;
   playerCards.forEach(function (card) {
     html += `<div class="card ${card.face}"></div>`;
   });
@@ -167,8 +198,9 @@ function render() {
   });
   dealerHand.innerHTML = html;
   inPlayBtns.style.display = handInProgress ? '' : 'none';
-  shuffleBtn.style.display = handInProgress ? 'none' : '';
+  shuffleBtn.style.display = handInProgress || (bet === 0) ? 'none' : '';
   betBtns.style.display = handInProgress ? 'none' : '';
+  messageToDisplay = bank < 5 ? 'Insufficient Funds' : '';
   message.textContent = messageToDisplay;
 }
 
