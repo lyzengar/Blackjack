@@ -1,44 +1,104 @@
 body {
-    background-image: url('/Users/andrew/projects/blackjack/images/Table.png');
+    margin: 0;
+    background-color: #550002;
+    background-image:
+    repeating-linear-gradient(120deg, rgba(255,255,255,.1), rgba(255,255,255,.1) 1px, transparent 1px, transparent 60px),
+    repeating-linear-gradient(60deg, rgba(255,255,255,.1), rgba(255,255,255,.1) 1px, transparent 1px, transparent 60px),
+    linear-gradient(60deg, rgba(0,0,0,.1) 25%, transparent 25%, transparent 75%, rgba(0,0,0,.1) 75%, rgba(0,0,0,.1)),
+    linear-gradient(120deg, rgba(0,0,0,.1) 25%, transparent 25%, transparent 75%, rgba(0,0,0,.1) 75%, rgba(0,0,0,.1));
+    background-size: 70px 120px;
+}
+
+.table {
+    padding-top: 20px;
+    height: 570px;
+    width: 100%;
+    background-image: url('/Users/andrew/projects/blackjack/images/Table2.png');
     background-repeat: no-repeat;
-    background-color: black;
     background-position: center top;
     background-size: 80%;
-    margin: 30px auto;
-    
+    margin: 0 auto;
 }
 
 #dealer {
     display: flex;
-    border: 2px solid black;
-    height: 110px;
-    width: 700px;
+    height: 150px;
+    width: 900px;
     margin: 0 auto;
 }
 
-#deck {
-    background-image: url("/Users/andrew/projects/blackjack/css/card-deck-css/images/backs/red.svg");
+#dealer div, #playerHand div {
+    background-size: contain;
+    width: 100px;
+    height: 140px;
 }
 
 #playerHand {
     display: flex;
-    border: 2px solid black;
     height: 110px;
-    width: 500px;
+    width: 520px;
     margin: 0 auto;
+    margin-bottom: 40px;
 }
 
 #dealerHand {
-    border: 1px solid black;
     margin-left: 80px;
+    min-width: 600px;
 }
 
 .message {
-    border: 2px dashed red;
-    height: 200px;
-    width: 700px;
+    height: 180px;
+    width: 800px;
     margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 110px;
+    font-family: 'Rye', cursive;
+    text-shadow: 0 0 15px #550002
+}
+
+#in-play-btns, #deal-btn {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 50px;
+}
+
+button {
+    margin: 0 10px;
+    width: 100px;
+    height: 50px;
+    border-radius: 4px;
+    font-size: 20px;
+    background-color: beige;
+    font-family: 'Fontdiner Swanky', cursive;
+}
+
+button:hover {
+    box-shadow: 0 0 15px #550002;
+    background-color: #529057;
+    color: white;
+}
+
+.betting {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 150px;
+}
+
+#bank, #currentBet {
+    width: 225px;
+    height: 150px;
+    background-color: beige;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Rye', cursive;
+    font-size: 48px;
+    border: 10px ridge gold;
+}
+
+span {
+    font-size: 24px;
 }

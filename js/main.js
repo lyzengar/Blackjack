@@ -26,13 +26,13 @@ var playerHand = document.querySelector('#playerHand');
 var inPlayBtns = document.querySelector('#in-play-btns');
 var shuffleBtn = document.querySelector('#newHand');
 var message = document.querySelector('.message');
+var betBtns = document.querySelector('#betButtons');
 
 /*----- event listeners -----*/
 
-document.getElementById('deck').addEventListener('click', deal);
 document.getElementById('hit').addEventListener('click', hit);
 document.getElementById('stand').addEventListener('click', stand);
-document.getElementById('newHand').addEventListener('click', redeal);
+document.getElementById('newHand').addEventListener('click', deal);
 
 /*----- functions -----*/
 
@@ -58,6 +58,12 @@ function shuffle() {
 }
 
 function deal() {
+  playerValue = null;
+  dealerValue = null;
+  deck = [];
+  playerCards = [];
+  dealerCards = [];
+  messageToDisplay = '';
   newDeck();
   shuffle();
   handInProgress = true;
@@ -72,6 +78,10 @@ function deal() {
   } else if (playerValue === 21 && dealerValue !== 21) {
     handInProgress = false;
     messageToDisplay = 'Blackjack!';
+    console.log('blackjack!')
+  } else if (playerValue !== 21 && dealerValue === 21) {
+    handInProgress = false;
+    messageToDisplay = 'Dealer Wins';
     console.log('blackjack!')
   }
   render();
@@ -107,7 +117,6 @@ function hit() {
 function stand() {
   if (dealerValue > 16) {
     render();
-    //checkForWinner();
   }
   while (dealerValue <= 16) {
     dealerCards.push(deck[0]);
@@ -115,7 +124,7 @@ function stand() {
     deck.shift();
     render();
     if (dealerValue > 21) {
-      messageToDisplay = 'You Win!'
+      messageToDisplay = 'You Win!';
       console.log('dealer bust');
     }
   }
@@ -129,24 +138,12 @@ function checkForWinner() {
     messageToDisplay = 'Tie Game';
     console.log('tie game');
   } else if (playerValue > dealerValue) {
-    messageToDisplay = 'You Win!'
+    messageToDisplay = 'You Win!';
     console.log('player wins')
   } else if (dealerValue > playerValue && dealerValue <= 21) {
-    messageToDisplay = 'Dealer Wins'
+    messageToDisplay = 'Dealer Wins';
     console.log('dealer wins')
   } else { }
-  render();
-}
-
-function redeal() {
-  playerValue = null;
-  dealerValue = null;
-  deck = [];
-  playerCards = [];
-  dealerCards = [];
-  messageToDisplay = '';
-  newDeck();
-  shuffle();
   render();
 }
 
@@ -155,13 +152,11 @@ function initialize() {
 }
 
 function render() {
-  // render playerHand
   var html = '';
   playerCards.forEach(function (card) {
     html += `<div class="card ${card.face}"></div>`;
   });
   playerHand.innerHTML = html;
-  // render dealerHand
   html = '';
   dealerCards.forEach(function (card, idx) {
     if (handInProgress) {
@@ -173,6 +168,7 @@ function render() {
   dealerHand.innerHTML = html;
   inPlayBtns.style.display = handInProgress ? '' : 'none';
   shuffleBtn.style.display = handInProgress ? 'none' : '';
+  betBtns.style.display = handInProgress ? 'none' : '';
   message.textContent = messageToDisplay;
 }
 
