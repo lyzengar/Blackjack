@@ -80,6 +80,10 @@ button:hover {
     color: white;
 }
 
+#betButtons {
+    height: 50px;
+}
+
 .betting {
     display: flex;
     justify-content: space-between;
@@ -88,10 +92,10 @@ button:hover {
 
 #bank, #currentBet {
     width: 225px;
-    height: 150px;
+    height: 140px;
     background-color: beige;
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     font-family: 'Rye', cursive;
