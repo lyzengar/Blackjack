@@ -203,7 +203,8 @@ function render() {
   dealerHand.innerHTML = html;
   inPlayBtns.style.display = handInProgress ? '' : 'none';
   shuffleBtn.style.display = handInProgress || (bet === 0) ? 'none' : '';
-  betBtns.style.display = handInProgress ? 'none' : '';
+  betBtns.style.display = handInProgress || bankroll < 5 ? 'none' : '';
+  messageToDisplay = bankroll < 5 && bet === 0 && handInProgress === false ? 'Game Over' : messageToDisplay;
   message.textContent = messageToDisplay;
 }
 
