@@ -183,7 +183,7 @@ function initialize() {
 
 function render() {
   var html = '';
-  bank.innerHTML = `<span>Bank</span>$${bankroll}`;
+  bank.innerHTML = `<span>Bank</span>$${bankroll.toFixed(2)}`;
   currentBet.innerHTML = `<span>Bet</span>$${bet}`;
   playerCards.forEach(function (card) {
     html += `<div class="card ${card.face}"></div>`;
