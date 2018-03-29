@@ -128,14 +128,15 @@ function stand() {
     dealerCards.push(deck[0]);
     dealerValue = computeHand(dealerCards);
     deck.shift();
-    render();
     if (dealerValue > 21) {
       messageToDisplay = 'You Win!';
+      payout();
+      newBet();
     }
   }
   handInProgress = false;
-  render();
   checkForWinner();
+  render();
 }
 
 function checkForWinner() {
@@ -199,8 +200,8 @@ function render() {
   dealerHand.innerHTML = html;
   inPlayBtns.style.display = handInProgress ? '' : 'none';
   shuffleBtn.style.display = handInProgress || (bet === 0) ? 'none' : '';
-  betBtns.style.display = handInProgress ? 'none' : '';
-  messageToDisplay = bank < 5 ? 'Insufficient Funds' : '';
+  betBtns.style.display = handInProgress || bankroll < 5 ? 'none' : '';
+  messageToDisplay = bankroll < 5 && bet === 0 && handInProgress === false ? 'Game Over' : messageToDisplay;
   message.textContent = messageToDisplay;
 }
 
