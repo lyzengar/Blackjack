@@ -9,6 +9,9 @@
 - CSS
 - JavaScript
 
+#### Libraries Used
+- Card Deck CSS
+
 [Getting started](https://lyzengar.github.io/Blackjack/)
 
 #### Next Steps
