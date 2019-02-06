@@ -78,6 +78,7 @@ button:hover {
     box-shadow: 0 0 15px #550002;
     background-color: #529057;
     color: white;
+    cursor: pointer;
 }
 
 #betButtons {
@@ -101,6 +102,10 @@ button:hover {
     font-family: 'Rye', cursive;
     font-size: 48px;
     border: 10px ridge gold;
+}
+
+.card:hover {
+    cursor: default;
 }
 
 span {
